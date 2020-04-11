@@ -14,26 +14,28 @@
 <div class="container" id="home">
 	<div class="row mt-5 col-lg-12">
 		<div class="col-lg-4"><img src="./images/logo.png" alt="Logo"  height='20px'></div>
-		<div class="col-lg-2 custom-btn offset-lg-10">
-			<!-- <div class="btn btn-sm col-lg-12 btn-outline-prim	ary">verify Online Ticket</div> -->
+		<div class="col-lg-1 offset-6">
+		 	<h5 class="text-muted" id="thisBooking">—</h5>
 		</div>
+
+		<div class="col-lg-1 float-right">
+			<img src="./images/manageSolutions.png" id="settings" height="15px">
+		</div>
+
 	</div>
 
 	<!-- verify -->
 	<div class="row col-lg-12 mt-3">
 		<!-- the verify button goes here -->
-		<div class="col-lg-12" id="branch">Equity Bank — Kenyatta Univesity</div><br>
-		<div class="col-lg-12 text-muted" id="date"><small class="text-muted">Thursday, 23 January 2020</small></div>
+		<div class="col-lg-12" id="branch">—</div><br>
+		<div class="col-lg-6 text-muted"><small class="text-muted" id="date">—</small></div>
 	</div>
 	<!-- end verify -->
-
-
 	<!-- body -->
 	<div class="row col-lg-12 mt-5" id="services" style="margin-left: 1px">
-		
 
 		<!-- card 2 -->
-		
+
 		<!-- card3 -->
 	</div>
 	<!-- endbody -->
@@ -42,11 +44,80 @@
 	<!-- term two end -->
 </div>
 
+<!--modal-->
+<div id="myModal" class="modal">
+	<div class="modal-content" >
+		<span class="close" style="text-align:right">&times;</span>
+		<div id="pop" class="col-lg-12">
+			<div id="keyAndSettings">
+				<h5  id="action">Settings</h5>
+				<!-- body start -->
+				<!-- top card  -->
+				<div class="row details">
+					<!-- test -->
+					<div class="col mt-3 " style="font-size:12px">
+					<h5  id="action">Actions</h5>
+					<div class="row">
+						<div class="col-lg-4 mb-3"  id="allocated">
+						<p class="actions">Enter Your branch Activation Key <br><small>This key is allocated to you via email after registration</small></p>
+							<div id="message_key"></div>
+							<div class="form-group">
+								<label for="exampleFormControlTextarea1">Key</label>
+								<input class="form-control form-control-sm" id="key" rows="1" style="width:40rem;font-family:monospace;" />
+							</div>
+							<button class="btn btn btn-outline-primary btn-sm col-lg-5"  id="verifyKey" disabled>Verify</button>
+							</div>
+						</div>
+					</div>
+					<!-- body end -->
+					<br><br>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="pop" class="col-lg-12">
+			<div id="iconConfirm">
+				<h5  id="action">Ticket Confirm</h5>
+				<!-- body start -->
+				<!-- top card  -->
+				<div class="row details">
+					<!-- test -->
+					<div class="col mt-3 " style="font-size:12px">
+						<div id="ticket_message"></div>
+						<h5  id="action" class="text-muted">Please Confirm if you would like to print the ticket.</h5>
+						<div class="row">
+							<div class="col-lg-6 mb-3"  id="key">
+								<h1 class="key" style="color:#dedede">Are You sure you would like to make a <span id="service_name_intext"  style="color:#a9a9a9">Banking</span> booking ?</h1>
+							</div>
+						</div>
+						<div class="row col-lg-12 mt-5">
+							<div class="btn btn btn-primary col-lg-4"  style="margin-right:20px"  id="verifyTicket">Verify</div>
+							<div class="btn btn btn-outline-danger col-lg-4 "  id="cancelTicket">Cancel</div>
+
+						</div>
+					</div>
+				<!-- body end -->
+				<br><br>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--modal-->
+
 <script src="./libs/bootstrap/js/bootstrap.min.js"></script>
 <script src="./scripts/main.js"></script>
-<script>
-	document.getElementsByClassName("custom_card")
-</script>
+	<style>
+		.texts {
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+	</style>
 </body>
 </html> 
 
