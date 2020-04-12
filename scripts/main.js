@@ -19,7 +19,6 @@ $(function() {
 
 	// here we are profilling the DOM
 	getData(`${link}/services/branch/get`,"POST",{ "branch_id": branch_id},(service)=>{
-
 		if(service.length > 0){
 			service.map((data)=>{
 			id = data.name;
