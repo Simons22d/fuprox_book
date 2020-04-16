@@ -21,6 +21,7 @@ $(function() {
 	getData(`${link}/services/branch/get`,"POST",{ "branch_id": branch_id},(service)=>{
 		if(service.length > 0){
 			service.map((data)=>{
+				console.log(data)
 			id = data.name;
 					handle.append(`
 							<div class="custom-width  custom_card outset_card" id=${id}>
@@ -28,7 +29,7 @@ $(function() {
 							<div class="row" id=${id}>
 								<div class="col-lg-3" id=${id}>
 									<!-- image -->
-									<img src="./images/error.png" alt="" class="texts" height="60px" id= ${id}>
+									<img src=${data.icon_image} alt="" class="texts" height="60px" id= ${id}>
 								</div>
 								<div class="col-lg-7" id= ${id}>
 									<div class="col-lg-12"><h5 class="texts muted-text" id= ${id}>${data.name}</h5></div>
