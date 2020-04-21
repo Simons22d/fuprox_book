@@ -31,7 +31,7 @@ $(function() {
 									<!-- image -->
 									<img src=${data.icon_image} alt="" class="texts" height="60px" id= ${id}>
 								</div>
-								<div class="col-lg-7" id= ${id}>
+								<div class="col-lg-7" id=${id}>
 									<div class="col-lg-12"><h5 class="texts muted-text" id= ${id}>${data.name}</h5></div>
 									<div class="col-lg-12"><h5 class="texts muted-text" id= ${id}>Till No ${data.teller}</h5></div>
 								</div>
