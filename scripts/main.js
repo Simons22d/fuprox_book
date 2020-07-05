@@ -1,5 +1,6 @@
 let branch_id = JSON.parse(localStorage.getItem("branch_info")) ? JSON.parse(localStorage.getItem("branch_info")).msg.id : 1;
 let link = "http://127.0.0.1:1000"
+let ticket = $("#ticket");
 // let link = "http://desktop.fuprox.com";
 //
 const getData = (url,methods,data,handle) => {
@@ -33,8 +34,8 @@ $(function() {
 								</div>
 								<div class="col-lg-7" id=${id}>
 								
-									<div class="col-lg-12"><h5 class="texts muted-text" id= ${id}>${data.name}</h5></div>
-									<div class="col-lg-12"><h5 class="texts muted-text" id= ${id}>Till No ${data.teller}</h5></div>
+									<div class="col-lg-12"><h5 class="texts muted-text bold" id= ${id}>${data.name}</h5></div>
+									<div class="col-lg-12"><h5 class="texts muted-text bold" id= ${id}>Till No ${data.teller}</h5></div>
 								</div>
 							</div>
 							<!-- end top -->
@@ -52,10 +53,10 @@ const key_exists = () =>{
 	return localStorage.getItem("myCat");
 }
 
-
 // working with the booking pop-up
 setTimeout(()=>{
     $(".custom_card").on("click",(e)=>{
+		ticket.show()
 		let service_name = e.target.id;
 		let spl = service_name.split("_");
 		let king = service_name.split("_").length > 1 ? `${spl[0]} ${spl[1]}` : service_name ;
@@ -81,8 +82,6 @@ $("#settings").on("click",()=>{
 $(".close").on("click",()=>{
 	$("#myModal").hide()
 });
-
-
 
 setTimeout(()=>{
 	let key = localStorage.getItem("key")
@@ -114,6 +113,11 @@ const verifyKey = (key) => {
 	})
 }
 
+// print ticket 
+const printTicket = () =>{
+
+}
+
 $("#verifyKey").on("click",()=>{
 	let key = $("#key").val()
 	if(key) {
@@ -124,11 +128,9 @@ $("#verifyKey").on("click",()=>{
 	}
 })
 
-
 $("#key").on("input",(e)=>{
 	$("#verifyKey").prop("disabled",false)
 })
-
 
 // getting the local storage key
 if(localStorage.getItem("key")){
@@ -151,19 +153,41 @@ if(localStorage.getItem("key")){
 
 $("#cancelTicket").on("click",()=>{
 	$("#myModal").hide()
+	ticket.hide()
 })
 
+
 $("#verifyTicket").on("click",(e)=>{
+	setTimeout(()=>{ticket.hide()},500)
 	$("#verifyKey").prop("disabled",true)
 	let spl = sessionStorage.getItem("service_name").split("_")
 	let king = spl.length > 1 ? `${spl[0]} ${spl[1]}` : sessionStorage.getItem("service_name") ;
 	getData(`${link}/booking/make`,"POST",{"service_name":king,"branch_id":branch_id,"is_instant":"","user_id":0},(data)=>{
 	  let thisBooking=$("#thisBooking")
 		thisBooking.html(data.code);
+
 		let thisHandle = $(`#offline-${sessionStorage.getItem("service_name")}`);
+	
+		getData(`${link}/get/ticket/data`,"POST",{"booking_id": data.booking_id,"key" : JSON.parse(localStorage.getItem("branch_info")).msg.key_},(ticket_data)=>{
+			$("#company").html(ticket_data.company)	
+			$("#branch_id").html(ticket_data.branch_name)
+			$("#avg_wait").html(`${ticket_data.avg_time.minutes} Minutes ${ticket_data.avg_time.seconds} Seconds`)
+			$("#people_ahead").html(`${ticket_data.pple} People`)
+			$("#time_to_end").html(`${ticket_data.approximate_end_time}.`)
+			$("#ticket_number").html(`${ticket_data.ticket}`);
+			$("#icon").attr("src",ticket_data.icon)
+			printJS({printable : 'ticket', type: 'html', targetStyles : ['*']});
+
+		})
+
+
 		getData(`${link}/customer/local/booking`,"POST",{"branch_id":branch_id,"service_name":king},(online_data)=>{
-			thisHandle.html(online_data.length);
-			$("#ticket_message").html("<div class=\"alert alert-success col-lg-6\" role=\"alert\">Booking Successfully Made</div>")
+			if(online_data){
+				thisHandle.html(online_data.length);
+				$("#ticket_message").html("<div class=\"alert alert-success col-lg-6\" role=\"alert\">Booking Successfully Made</div>")
+			}else{
+				$("#ticket_message").html("<div class=\"alert alert-warning col-lg-6\" role=\"alert\">Error! Booking Coold Not be Made</div>")
+			}
 		})
 		setTimeout(()=>{
 			$("#myModal").hide()
@@ -171,4 +195,3 @@ $("#verifyTicket").on("click",(e)=>{
 		},2000)
 	})
 })
-
