@@ -179,8 +179,6 @@ $("#verifyTicket").on("click",(e)=>{
 			printJS({printable : 'ticket', type: 'html', targetStyles : ['*']});
 
 		})
-
-
 		getData(`${link}/customer/local/booking`,"POST",{"branch_id":branch_id,"service_name":king},(online_data)=>{
 			if(online_data){
 				thisHandle.html(online_data.length);
@@ -192,6 +190,6 @@ $("#verifyTicket").on("click",(e)=>{
 		setTimeout(()=>{
 			$("#myModal").hide()
 			$("#ticket_message").html("")
-		},2000)
+		},1000)
 	})
 })
