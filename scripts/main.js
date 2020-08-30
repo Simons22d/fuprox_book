@@ -171,7 +171,7 @@ $("#verifyTicket").on("click",(e)=>{
 		getData(`${link}/get/ticket/data`,"POST",{"booking_id": data.booking_id,"key" : JSON.parse(localStorage.getItem("branch_info")).msg.key_},(ticket_data)=>{
 			$("#company").html(ticket_data.company)	
 			$("#branch_id").html(ticket_data.branch_name)
-			$("#avg_wait").html(`${ticket_data.avg_time.minutes} Minutes ${ticket_data.avg_time.seconds} Seconds`)
+			$("#avg_wait").html(`${ticket_data.avg_time.hours} H ${ticket_data.avg_time.minutes} M ${ticket_data.avg_time.seconds} S`)
 			$("#people_ahead").html(`${ticket_data.pple} People`)
 			$("#time_to_end").html(`${ticket_data.approximate_end_time}.`)
 			$("#ticket_number").html(`${ticket_data.ticket}`);
@@ -179,6 +179,7 @@ $("#verifyTicket").on("click",(e)=>{
 			printJS({printable : 'ticket', type: 'html', targetStyles : ['*']});
 
 		})
+
 		getData(`${link}/customer/local/booking`,"POST",{"branch_id":branch_id,"service_name":king},(online_data)=>{
 			if(online_data){
 				thisHandle.html(online_data.length);
