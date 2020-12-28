@@ -10,9 +10,9 @@ let token;
 function createWindows() {
     win = new BrowserWindow({
                 height:700,
-                width: 1200, 
+                width: 1400, 
                 minHeight:700,
-                minWidth: 1200,
+                minWidth: 1400,
                 autoHideMenuBar  : true,
     })
     // options  to add later
