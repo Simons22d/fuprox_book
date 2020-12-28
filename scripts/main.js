@@ -56,16 +56,20 @@ const key_exists = () =>{
 // working with the booking pop-up
 setTimeout(()=>{
     $(".custom_card").on("click",(e)=>{
-		ticket.show()
 		let service_name = e.target.id;
-		let spl = service_name.split("_");
-		let king = service_name.split("_").length > 1 ? `${spl[0]} ${spl[1]}` : service_name ;
-		sessionStorage.setItem("service_name",service_name);
-    	// make booking
-		$("#service_name_intext").html(king);
-		$("#myModal").show()
-		$("#iconConfirm").show()
-		$("#keyAndSettings").hide()
+		if(service_name.trim()){
+			ticket.show()
+			let spl = service_name.split("_");
+			let king = service_name.split("_").length > 1 ? `${spl[0]} ${spl[1]}` : service_name ;
+			sessionStorage.setItem("service_name",service_name);
+	    	// make booking
+			$("#service_name_intext").html(king);
+			$("#myModal").show()
+			$("#iconConfirm").show()
+			$("#keyAndSettings").hide()
+
+		}
+		
     })
     // here we are going to have 
 },1000)
@@ -171,7 +175,22 @@ $("#verifyTicket").on("click",(e)=>{
 		getData(`${link}/get/ticket/data`,"POST",{"booking_id": data.booking_id,"key" : JSON.parse(localStorage.getItem("branch_info")).msg.key_},(ticket_data)=>{
 			$("#company").html(ticket_data.company)	
 			$("#branch_id").html(ticket_data.branch_name)
-			$("#avg_wait").html(`${ticket_data.avg_time.hours} H ${ticket_data.avg_time.minutes} M ${ticket_data.avg_time.seconds} S`)
+			// here we are going to work with time 
+			let hrs = ticket_data.avg_time.hours
+			let mins = ticket_data.avg_time.minutes
+			let secs = ticket_data.avg_time.seconds
+			console.log(mins,secs);
+
+			let final_time 
+			 if(Number(mins) > 0 && Number(secs) > 0 || Number(mins) > 0 && Number(secs) === 00){
+				final_time = `${mins}M ${secs}S`
+			}else if(Number(mins) === 0 && Number(secs) > 0){
+				final_time = `Few Seconds`
+			}
+			ref = `${ticket_data.avg_time.minutes} M ${ticket_data.avg_time.seconds} S`
+			console.log(final_time);
+
+			$("#avg_wait").html(final_time)
 			$("#people_ahead").html(`${ticket_data.pple} People`)
 			$("#time_to_end").html(`${ticket_data.approximate_end_time}.`)
 			$("#ticket_number").html(`${ticket_data.ticket}`);
@@ -185,7 +204,7 @@ $("#verifyTicket").on("click",(e)=>{
 				thisHandle.html(online_data.length);
 				$("#ticket_message").html("<div class=\"alert alert-success col-lg-6\" role=\"alert\">Booking Successfully Made</div>")
 			}else{
-				$("#ticket_message").html("<div class=\"alert alert-warning col-lg-6\" role=\"alert\">Error! Booking Coold Not be Made</div>")
+				$("#ticket_message").html("<div class=\"alert alert-warning col-lg-6\" role=\"alert\">Error! Booking Could Not be Made</div>")
 			}
 		})
 		setTimeout(()=>{

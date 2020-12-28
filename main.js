@@ -29,7 +29,6 @@ function createWindows() {
     win.setMenu(null)
 }
 ipcMain.on('entry-accepted', (event, arg) => {
-    console.log(arg)
     event.reply('token',"arg")
 })
 

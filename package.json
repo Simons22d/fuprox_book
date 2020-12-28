@@ -1,14 +1,14 @@
 {
-  "name": "fuprox-main",
+  "name": "Book",
   "version": "1.0.0",
-  "description": "\"Fuprox main app\"",
+  "description": "\"NoQueue Book\"",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ."
   },
   "keywords": [
-    "Fuprox"
+    "NoQueue"
   ],
   "author": "Denis Wambui",
   "license": "ISC",
