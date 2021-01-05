@@ -7,6 +7,9 @@ let win;
 let token;
 
 
+// disabling caching
+app.commandLine.appendSwitch ("disable-http-cache");
+
 function createWindows() {
     win = new BrowserWindow({
                 height:700,
