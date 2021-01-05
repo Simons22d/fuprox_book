@@ -73,10 +73,14 @@ setTimeout(()=>{
 
 		let service_name = id ? id : localStorage.getItem("current_service");
 		localStorage.setItem("current_service",id)
+		localStorage.setItem("service_name",service_name)
+		sessionStorage.setItem("service_name",localStorage.getItem("service_name"));
+
 		ticket.show()
 		let spl = service_name.split("_");
 		let king = service_name.split("_").length > 1 ? `${spl[0]} ${spl[1]}` : service_name ;
 		sessionStorage.setItem("service_name",service_name);
+		//localStorage.setItem("current_service",id)
 		// make booking
 		$("#service_name_intext").html(king);
 		$("#myModal").show()
