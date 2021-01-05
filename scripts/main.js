@@ -54,25 +54,8 @@ const key_exists = () =>{
 }
 
 // working with the booking pop-up
-setTimeout(()=>{
-    $(".custom_card").on("click",(e)=>{
-		let service_name = e.target.id;
-		if(service_name.trim()){
-			ticket.show()
-			let spl = service_name.split("_");
-			let king = service_name.split("_").length > 1 ? `${spl[0]} ${spl[1]}` : service_name ;
-			sessionStorage.setItem("service_name",service_name);
-	    	// make booking
-			$("#service_name_intext").html(king);
-			$("#myModal").show()
-			$("#iconConfirm").show()
-			$("#keyAndSettings").hide()
 
-		}
-		
-    })
     // here we are going to have 
-},1000)
 });
 
 $("#settings").on("click",()=>{
@@ -82,6 +65,25 @@ $("#settings").on("click",()=>{
 		$("#keyAndSettings").show()
 	},10)
 });
+
+setTimeout(()=>{
+	$(".custom_card").on("click",(me)=>{
+		let id = me.target.id
+		console.log(id)
+
+		let service_name = id ? id : localStorage.getItem("current_service");
+		localStorage.setItem("current_service",id)
+		ticket.show()
+		let spl = service_name.split("_");
+		let king = service_name.split("_").length > 1 ? `${spl[0]} ${spl[1]}` : service_name ;
+		sessionStorage.setItem("service_name",service_name);
+		// make booking
+		$("#service_name_intext").html(king);
+		$("#myModal").show()
+		$("#iconConfirm").show()
+		$("#keyAndSettings").hide()
+	})
+},1000)
 
 $(".close").on("click",()=>{
 	$("#myModal").hide()
