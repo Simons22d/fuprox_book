@@ -29,6 +29,7 @@ function createWindows() {
         protocol:'file',
         slashes:true
     }))
+
     win.setMenu(null)
 }
 ipcMain.on('entry-accepted', (event, arg) => {
