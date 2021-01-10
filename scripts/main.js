@@ -1,8 +1,32 @@
 let branch_id = JSON.parse(localStorage.getItem("branch_info")) ? JSON.parse(localStorage.getItem("branch_info")).msg.id : 1;
-let link = "http://127.0.0.1:1000"
 let ticket = $("#ticket");
-// let link = "http://desktop.fuprox.com";
-//
+
+
+let addr = localStorage.getItem("server_ip")
+let link = `http://${addr}:1000`
+
+//setting the key
+setTimeout(()=>{
+	console.log(addr)
+	if(addr){
+		$("#server_ip").attr("placeholder",`Currently Set As '${addr}'`)
+	}else{
+		$("#server_ip").attr("placeholder",`Please Set Address Before using app.`)
+
+	}
+},500)
+
+
+$("#set_server_ip").on("click",()=>{
+	let server_ip = $("#server_ip").val()
+	if(server_ip){
+		localStorage.setItem("server_ip",server_ip)
+		$("#server_ip").attr("placeholder",`Currently Set As '${addr}'`)
+		$("#message_ip").html(`<div class="alert alert-success" role="alert">Success! Make sure to restart app.<br> for changes to take effect</div>`)
+	}
+})
+
+
 const getData = (url,methods,data,handle) => {
 	fetch(url,{
 	  method: methods,
