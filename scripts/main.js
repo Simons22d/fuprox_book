@@ -39,15 +39,18 @@ const getData = (url,methods,data,handle) => {
 	.then(res=>res.json())
 	.then(res => handle(res));
 };
+
+
 $(function() {
 	let	handle = $("#services")
 	// here we are profilling the DOM
-	getData(`${link}/services/branch/get`,"POST",{ "branch_id": branch_id},(service)=>{
-		if(service.length > 0){
-			service.map((data)=>{
-			let name = data.name.split(" ")
-			let service_name = name.length > 1 ? `${name[0]}_${name[1]}` : data.name;
-			id = service_name;
+	if(JSON.parse(localStorage.getItem("branch_info"))){
+		getData(`${link}/services/branch/get`,"POST",{ "branch_id": branch_id},(service)=>{
+			if(service.length > 0){
+				service.map((data)=>{
+					let name = data.name.split(" ")
+					let service_name = name.length > 1 ? `${name[0]}_${name[1]}` : data.name;
+					id = service_name;
 					handle.append(`
 							<div class="custom-width  custom_card outset_card" id=${id}>
 							<!-- top modal -->
@@ -60,17 +63,24 @@ $(function() {
 								
 									<div class="col-lg-12"><h5 class="texts muted-text bold" id= ${id}>${data.name}</h5></div>
 									<div class="col-lg-12"><h5 class="texts muted-text bold" id= ${id}>Till No ${data.teller}</h5></div>
+									
 								</div>
 							</div>
 							<!-- end top -->
 						</div>
 					`)
-		})
-		}else{
-			console.log("no service Data  ")
-			$("#services").html("<h3 style='color:lightgrey'>No Services added yet</h3>")
-		}
-	});
+				})
+			}else{
+				console.log("no service Data  ")
+				$("#services").html("<h3 style='color:lightgrey'>No Services added yet</h3>")
+			}
+		});
+	}else{
+		$("#services").html("" +
+			"<h3 style='color:lightgrey'>App Not Activated</h3>" +
+			"<p style='color:lightgrey' class='h6'>Please add a branch key.</p>" +
+			"")
+	}
 
 
 const key_exists = () =>{
