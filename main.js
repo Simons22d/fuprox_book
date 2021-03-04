@@ -17,6 +17,8 @@ function createWindows() {
                 minHeight:700,
                 minWidth: 1400,
                 autoHideMenuBar  : true,
+                fullscreen : true,
+                frame: false,
     })
     // options  to add later
     // frame: false,
