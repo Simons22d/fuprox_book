@@ -40,10 +40,43 @@ const getData = (url,methods,data,handle) => {
 	.then(res=>res.json())
 	.then(res => handle(res));
 };
+// socket implementation .....
 
+
+const sio = io("http://localhost:5500/");
+
+
+sio.on('connect', () => {
+  console.log('connected');
+});
+
+sio.on('disconnect', () => {
+  console.log('disconnected');
+});
+
+sio.on('service_mod_data', () => {
+  loadTiles()
+  console.log("Tiles Reloaded")
+});
+
+// end socket implemetation 
 
 $(function() {
+loadTiles();
+
+const key_exists = () =>{
+	return localStorage.getItem("myCat");
+}
+
+// working with the booking pop-up
+
+    // here we are going to have 
+});
+
+
+const loadTiles = () =>{
 	let	handle = $("#services")
+	handle.html("")
 	// here we are profilling the DOM
 	if(JSON.parse(localStorage.getItem("branch_info"))){
 		getData(`${link}/services/branch/get`,"POST",{ "branch_id": branch_id},(service)=>{
@@ -72,27 +105,40 @@ $(function() {
 					`)
 				})
 			}else{
-				console.log("no service Data  ")
-				$("#services").html("<h3 style='color:lightgrey'>No Services added yet</h3>")
+				$("#services").html("<br><h3 style='color:lightgrey'>No Services added yet</h3><br>")
 			}
 		});
 	}else{
 		$("#services").html("" +
 			"<h3 style='color:lightgrey'>App Not Activated</h3>" +
-			"<p style='color:lightgrey' class='h6'>Please add a branch key.</p>" +
-			"")
+			"<p style='color:lightgrey' class='h6'><br>Please add a branch key.</p>" +
+			"<br>")
 	}
 
+	setTimeout(()=>{
+	$(".custom_card").on("click",(me)=>{
+		let id = me.target.id
+		console.log(id)
 
-const key_exists = () =>{
-	return localStorage.getItem("myCat");
+		let service_name = id ? id : localStorage.getItem("current_service");
+		localStorage.setItem("current_service",id)
+		localStorage.setItem("service_name",service_name)
+		sessionStorage.setItem("service_name",localStorage.getItem("service_name"));
+
+		ticket.show()
+		let spl = service_name.split("_");
+		let king = service_name.split("_").length > 1 ? `${spl[0]} ${spl[1]}` : service_name ;
+		sessionStorage.setItem("service_name",service_name);
+		// localStorage.setItem("current_service",id)
+		// make booking
+		$("#service_name_intext").html(king);
+		$("#myModal").show()
+		$("#iconConfirm").show()
+		$("#keyAndSettings").hide()
+	})
+},1000)
+	
 }
-
-// working with the booking pop-up
-
-    // here we are going to have 
-});
-
 $("#settings").on("click",()=>{
 	$("#myModal").show()
 	setTimeout(()=>{
@@ -223,6 +269,7 @@ $("#verifyTicket").on("click",(e)=>{
 			let secs = ticket_data.avg_time.seconds
 			console.log(mins,secs);
 
+
 			let final_time 
 			 if(Number(mins) > 0 && Number(secs) > 0 || Number(mins) > 0 && Number(secs) === 00){
 				final_time = `${mins}M ${secs}S`
@@ -238,6 +285,7 @@ $("#verifyTicket").on("click",(e)=>{
 			$("#ticket_number").html(`${ticket_data.ticket}`);
 			$("#icon").attr("src",ticket_data.icon)
 			printJS({printable : 'ticket', type: 'html', targetStyles : ['*']});
+			sio.emit("hello","")
 
 		})
 
