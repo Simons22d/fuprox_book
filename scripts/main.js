@@ -1,4 +1,4 @@
-let branch_id = JSON.parse(localStorage.getItem("branch_info")) ? JSON.parse(localStorage.getItem("branch_info")).msg.id : 1;
+let branch_id = JSON.parse(localStorage.getItem("branch_info")) ? JSON.parse(localStorage.getItem("branch_info")).id : 1;
 let ticket = $("#ticket");
 
 
@@ -174,36 +174,53 @@ $(".close").on("click",()=>{
 	$("#myModal").hide()
 });
 
-setTimeout(()=>{
-	let key = localStorage.getItem("key")
-	getData(`${link}/branch/by/key`,"POST",{"key" : key},(data)=>{
-		if(data.status){
-			$("#branch").html(data.msg.name)
-			$("#date").html(new Date())
-		}else{
-			$("#branch").html("——")
-		}
-	})
-},10)
 
-const verifyKey = (key) => {
-	getData(`${link}/branch/by/key`,"POST",{"key" : key.trim()},(data)=>{
-		if (data.status){
-			// #store key in localStorage
-			$("#message_key").html(`<div class="alert alert-success" role="alert">Valid Key</div>`)
-			localStorage.setItem("key",key)
+
+// setTimeout(()=>{
+// 	let key = localStorage.getItem("key")
+// 	getData(`${link}/branch/by/key`,"POST",{"key" : key},(data)=>{
+// 		if(data.status){
+// 			$("#branch").html(data.name)
+// 			$("#date").html(new Date())
+// 		}else{
+// 			$("#branch").html("——")
+// 		}
+// 	})
+// },10)
+
+
+
+const verifyKey = (me) => {
+	let key = $("#key").val()
+	console.log(key)
+	getData(`${link}/app/activate`,"POST",{"key" : key},(data)=>{
+		console.log(data)
+		if(data){
+			console.log("Data available")
+			localStorage.setItem("key",data["key_"])
 			localStorage.setItem("branch_info",JSON.stringify(data))
-			$("#verifyKey").prop("disabled",true)
-			$("#key").removeClass("is-invalid")
-			reload()
+			$("#branch").html(data.name)
+			$("#date").html(new Date())
+			$("#services").show()
+
 		}else{
-			// key not valid
-			// replace dowm with on invalid key
-			$("#message_key").html(`<div class="alert alert-danger" role="alert">Key Is Not Valid</div>`)
-			$("#key").addClass("is-invalid")
+			// app not activated
+			$("#branch").html(`
+			<img src="./images/key.png" alt="" height="40px" class="mt-3">
+			<div class="mt-2">Error! Application not activated</div>
+			<div class="text-muted">Please make sure you active the application from the backend provided</div>
+			`)
+			$("#services").hide()
 		}
 	})
 }
+
+verifyKey()
+
+
+
+
+
 
 // print ticket 
 const printTicket = () =>{
@@ -260,7 +277,7 @@ $("#verifyTicket").on("click",(e)=>{
 
 		let thisHandle = $(`#offline-${sessionStorage.getItem("service_name")}`);
 	
-		getData(`${link}/get/ticket/data`,"POST",{"booking_id": data.booking_id,"key" : JSON.parse(localStorage.getItem("branch_info")).msg.key_},(ticket_data)=>{
+		getData(`${link}/get/ticket/data`,"POST",{"booking_id": data.booking_id,"key" : JSON.parse(localStorage.getItem("branch_info")).key_},(ticket_data)=>{
 			$("#company").html(ticket_data.company)	
 			$("#branch_id").html(ticket_data.branch_name)
 			// here we are going to work with time 
