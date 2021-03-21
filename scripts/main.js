@@ -43,7 +43,9 @@ const getData = (url,methods,data,handle) => {
 // socket implementation .....
 
 
-const sio = io("http://localhost:5500/");
+// const sio = io("http://localhost:5500/");
+
+const sio = io(`http://${addr}:5500/`);
 
 
 sio.on('connect', () => {
@@ -227,15 +229,15 @@ const printTicket = () =>{
 
 }
 
-$("#verifyKey").on("click",()=>{
-	let key = $("#key").val()
-	if(key) {
-	//	message_key
-		verifyKey(key)
-	}else {
-		$("#message_key").html(`<div class="alert alert-danger" role="alert">Key cannot Be empty</div>`)
-	}
-})
+// $("#verifyKey").on("click",()=>{
+// 	let key = $("#key").val()
+// 	if(key) {
+// 	//	message_key
+// 		verifyKey(key)
+// 	}else {
+// 		$("#message_key").html(`<div class="alert alert-danger" role="alert">Key cannot Be empty</div>`)
+// 	}
+// })
 
 $("#key").on("input",(e)=>{
 	$("#verifyKey").prop("disabled",false)
