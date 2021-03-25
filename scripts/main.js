@@ -60,8 +60,10 @@ sio.on('service_mod_data', () => {
   loadTiles()
   console.log("Tiles Reloaded")
 });
-
 // end socket implemetation 
+sio.on("update_services_data",()=>{
+	loadTiles();
+})
 
 $(function() {
 loadTiles();
@@ -297,9 +299,18 @@ $("#verifyTicket").on("click",(e)=>{
 			}
 			ref = `${ticket_data.avg_time.minutes} M ${ticket_data.avg_time.seconds} S`
 			console.log(final_time);
-
+			let final_str = ""
+			if(ticket_data.pple){
+				if(Number(ticket_data.pple) === 1){
+					final_str = `${ticket_data.pple} Person`
+				}else{
+					final_str = `${ticket_data.pple} People`
+				}
+			}else{
+				final_str = "Yay! No one"
+			}
 			$("#avg_wait").html(final_time)
-			$("#people_ahead").html(`${ticket_data.pple} People`)
+			$("#people_ahead").html(final_str)
 			$("#time_to_end").html(`${ticket_data.approximate_end_time}.`)
 			$("#ticket_number").html(`${ticket_data.ticket}`);
 			$("#icon").attr("src",ticket_data.icon)
