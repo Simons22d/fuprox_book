@@ -214,6 +214,7 @@ const verifyKey = (me) => {
 	getData(`${link}/app/activate`,"POST",{"key" : key},(data)=>{
 		console.log(data)
 		if(data){
+			localStorage.setItem("branch_info",data)
 			console.log("Data available")
 			localStorage.setItem("key",data["key_"])
 			localStorage.setItem("branch_info",JSON.stringify(data))
@@ -287,12 +288,15 @@ $("#verifyTicket").on("click",(e)=>{
 	let spl = sessionStorage.getItem("service_name").split("_")
 	let king = spl.length > 1 ? `${spl[0]} ${spl[1]}` : sessionStorage.getItem("service_name") ;
 	getData(`${link}/booking/make`,"POST",{"service_name":king,"branch_id":branch_id,"is_instant":"","user_id":0},(data)=>{
+		console.log("!!!!!!!!!!!!!!!!!dennis!!!!",data)
 	  let thisBooking=$("#thisBooking")
 		thisBooking.html(data.code);
+		console.log("SDSDSDSDSDSD",data)
 
 		let thisHandle = $(`#offline-${sessionStorage.getItem("service_name")}`);
-	
+
 		getData(`${link}/get/ticket/data`,"POST",{"booking_id": data.booking_id,"key" : JSON.parse(localStorage.getItem("branch_info")).key_},(ticket_data)=>{
+			console.log("TICKET DATA ####################",ticket_data)
 			$("#company").html(ticket_data.company)	
 			$("#branch_id").html(ticket_data.branch_name)
 			// here we are going to work with time 
