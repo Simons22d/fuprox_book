@@ -22,6 +22,8 @@ $("#set_server_ip").on("click",()=>{
 		$("#server_ip").attr("placeholder",`Currently Set As '${addr}'`)
 		$("#message_ip").html(`<div class="alert alert-success" role="alert">Success! Make sure to restart app.<br> for changes to take effect</div>`)
 		reload()
+		reload()
+		reload()
 	}
 })
 
