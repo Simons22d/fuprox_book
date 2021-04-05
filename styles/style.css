@@ -126,3 +126,9 @@ html{
 .bold{
   font-weight: bold;
 }
+
+.gellix_header{
+  font-family: Gellix;
+  font-weight: bold;
+  color:rgba(133, 130, 130, 0.9)
+}
