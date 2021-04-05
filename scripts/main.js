@@ -125,7 +125,6 @@ const loadTiles = () =>{
 								
 									<div class="col-lg-12 custom_card_"><h5 class="texts muted-text bold" id= ${id}>${data.name}</h5></div>
 									<div class="col-lg-12 custom_card_"><h5 class="texts muted-text bold" id= ${id}>Till No ${data.teller}</h5></div>
-									
 								</div>
 							</div>
 							<!-- end top -->
@@ -146,13 +145,7 @@ const loadTiles = () =>{
 setTimeout(()=>{
 	$(".custom_card_").on("click",(me)=>{
 		let id = me.target.id
-
-		console.log("SSSS>>>>",id)
-
 		let service_name = id ? id : localStorage.getItem("current_service");
-		
-		console.log("XXXX",service_name)
-
 		localStorage.setItem("current_service",id)
 		localStorage.setItem("service_name",service_name)
 		sessionStorage.setItem("service_name",localStorage.getItem("service_name"));
