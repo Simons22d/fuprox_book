@@ -316,6 +316,7 @@ $("#verifyTicket").on("click",(e)=>{
 			console.log("final time : AVG WAIT",final_time)
 
 			$("#avg_wait").html(final_time)
+			$("#today").html(ticket_data.today)
 			$("#people_ahead").html(final_str)
 			$("#time_to_end").html(`${ticket_data.approximate_end_time}.`)
 			$("#ticket_number").html(`${ticket_data.ticket}`);
