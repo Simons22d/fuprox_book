@@ -11,6 +11,13 @@
     src: url("../assets/fonts/gellix/GellixBold.otf") format("opentype");
 }
 
+
+@font-face {
+  font-family: Ahamono;
+  src: url("../assets/fonts/gellix/GellixBold.otf") format("opentype");
+}
+
+
 html{
   font-family: "Gellix"
 }

@@ -18,16 +18,15 @@
 <div class="container" style="font-family: Gellix;font-weight: bold;" id="home">
 	<div class="row mt-5 col-lg-12">
 		<div class="col-lg-4"><img src="./images/logo.png" alt="Logo"  height='20px'></div>
-		<div class="col-lg-1 offset-5">
+		<div class="col-lg-1 offset-5 pl-3">
 		 	<h5 class="text-muted bold" id="thisBooking">—</h5>
 		</div>
 		<div class="col-lg-1 float-right pl-4">
-			<div class="btn btn-sm gellix_header" onclick="reload()">Reload</div>
+			<div class="btn btn-sm  btn-outline-secondary gellix_header" style="border:2px solid lightgray;" onclick="reload()">Reload</div>
 		</div>
 		<div class="col-lg-1 float-right">
 			<img src="./images/manageSolutions.png" id="settings" height="20px">
 		</div>
-
 	</div>
 
 	<!-- verify -->
@@ -130,46 +129,24 @@
 <!--modal-->
 
 <!-- ticket -->
-<div id="ticket" style="margin-bottom: -400px;font-family: Gellix,Arial, Helvetica, sans-serif; display: None;" >
+<div id="ticket" style="margin-bottom: -400px;font-family: Gellix,Arial, Helvetica, sans-serif; display: none;" >
 	<div class="mt-2 bold " >
-        		
-		<!-- <div class="row col-lg-12">
-            <h6 id="company" style="font-weight:bold; color: lightgray; margin-top:15px;"></h6>
-		</div> -->
-		
 
-        <div class="row col-lg-12">
-            <h6 class="mb-1" style="font-weight:bold" id="branch_id"></h6>
-		</div>
+			<p class=" mb-1 small" style="font-weight:bold" id="branch_id"></h6>
+			<h5 id="ticket_number" class="text-muted " style="font-weight: 900; font-size:20px;"></h4>
 
-        <!-- <div class="row col-lg-12 mt-1">
-            <p class="text-muted" style="font-weight:bold; color: lightgray; margin-top:15px;">TICKET</h6>
-		</div> -->
-<!--        <div class="row col-lg-12">-->
-<!--            <img id="icon" src="./images/bell.png " alt="" height="50px" class="mt-2 mb-2">-->
-<!--        </div>-->
-
-        <div class="col-lg-12 row mt-1">
-            <h5 id="ticket_number" class="text-muted " style="font-weight: 900; font-size:20px;"></h4>
-        </div>
-        <div class="row col-lg-12">
-            <p id="teller_number" style="margin-top:-10px; font-size:11px"></p>
-        </div>
-        <div class="row col-lg-12">
-            <p class='bold ' style="margin-top:-1px; font-size:11px">Avg Wait  —  <span id="avg_wait" > </span></p>
-		</div>
-        <div class="row col-lg-12" >
-            <p class ="bold " style="margin-top:-10px; font-size:11px">Ahead —  <span id="people_ahead"></span></p>
-        </div>
-
-<!--        <div id="details text-muted">-->
-<!--			<div class="row col-lg-12 mt-1">-->
-<!--				<p class="">Service Provided By</p>-->
-<!--			</div>-->
-			<div class="row col-lg-12" style="margin-top:-10px;">
-				<p class="small" style="font-size:9px">NOQUEUE by Fuprox — </p>
-				<p class="small" style="font-size:10px">&nbsp; www.fuprox.com</p>
-		</div>			
+			<div class="row col-lg-12 font-weight-bold" style="margin-top:0px;">
+				<p class="small font-weight-bold" style="font-size:9px">Wait — </p>&nbsp;
+				<p class="small font-weight-bold" id="avg_wait" style="font-size:10px"> </p>
+			</div>	
+			<div class="row col-lg-12 font-weight-bold" style="margin-top:-15px;">
+				<p class="small font-weight-bold" style="font-size:9px">Ahead — </p>&nbsp;
+				<p class="small font-weight-bold" id="people_ahead" style="font-size:10px"> </p>
+			</div>	
+			<div class="row col-lg-12 font-weight-bold" style="margin-top:-10px;">
+				<p class="small font-weight-bold" style="font-size:9px">NOQUEUE by Fuprox — </p>
+				<p class="small font-weight-bold" style="font-size:10px">&nbsp; www.fuprox.com</p>
+			</div>			
 <!--			<div class="col-lg-12 row text-muted" style="margin-top:-20px; color: lightgray; ">-->
 <!--				<p >www.noqueue.fuprox.com</p>-->
 <!--			</div>-->

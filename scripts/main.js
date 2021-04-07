@@ -64,6 +64,7 @@ sio.on("update_services_data",()=>{
 	loadTiles();
 })
 
+
 $(function() {
 loadTiles();
 
@@ -278,28 +279,25 @@ $("#verifyTicket").on("click",(e)=>{
 	let spl = sessionStorage.getItem("service_name").split("_")
 	let king = spl.length > 1 ? `${spl[0]} ${spl[1]}` : sessionStorage.getItem("service_name") ;
 	getData(`${link}/booking/make`,"POST",{"service_name":king,"branch_id":branch_id,"is_instant":"","user_id":0},(data)=>{
-		console.log("!!!!!!!!!!!!!!!!!dennis!!!!",data)
 	  let thisBooking=$("#thisBooking")
 		thisBooking.html(data.code);
-		console.log("SDSDSDSDSDSD",data)
+
 
 		let thisHandle = $(`#offline-${sessionStorage.getItem("service_name")}`);
 
 		getData(`${link}/get/ticket/data`,"POST",{"booking_id": data.booking_id,"key" : JSON.parse(localStorage.getItem("branch_info")).key_},(ticket_data)=>{
 			console.log("TICKET DATA ####################",ticket_data)
 			$("#company").html(ticket_data.company)	
-			$("#branch_id").html(ticket_data.branch_name)
+			$("#branch_id").html((ticket_data.branch_name).substr(0,32))
 			// here we are going to work with time 
 			let hrs = ticket_data.avg_time.hours
 			let mins = ticket_data.avg_time.minutes
 			let secs = ticket_data.avg_time.seconds
-			console.log(mins,secs);
 
-
-			let final_time 
-			 if(Number(mins) > 0 && Number(secs) > 0 || Number(mins) > 0 && Number(secs) === 00){
+			let final_time;
+			if(Number(mins) > 0 && Number(secs) > 0 || Number(mins) > 0 && Number(secs) === 00){
 				final_time = `${mins}M ${secs}S`
-			}else if(Number(mins) === 0 && Number(secs) > 0){
+			}else if(Number(secs) < 1){
 				final_time = `Few Seconds`
 			}
 			ref = `${ticket_data.avg_time.minutes} M ${ticket_data.avg_time.seconds} S`
@@ -314,6 +312,9 @@ $("#verifyTicket").on("click",(e)=>{
 			}else{
 				final_str = "Yay! No one"
 			}
+
+			console.log("final time : AVG WAIT",final_time)
+
 			$("#avg_wait").html(final_time)
 			$("#people_ahead").html(final_str)
 			$("#time_to_end").html(`${ticket_data.approximate_end_time}.`)
