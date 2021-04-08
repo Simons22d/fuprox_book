@@ -111,8 +111,12 @@ const loadTiles = () =>{
 	// here we are profiling the DOM
 	if(JSON.parse(localStorage.getItem("branch_info"))){
 		getData(`${link}/services/branch/get`,"POST",{ "branch_id": branch_id},(service)=>{
+			console.log(service)
 			if(service.length > 0){
+				console.log(11)
 				service.map((data)=>{
+					console.log(22)
+
 					let name = data.name.split(" ")
 					let service_name = name.length > 1 ? `${name[0]}_${name[1]}` : data.name;
 					id = service_name;
