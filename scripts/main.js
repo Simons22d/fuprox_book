@@ -125,7 +125,6 @@ const loadTiles = () =>{
 									<img src=${data.icon_image} alt="" class="texts custom_card_" height="60px" id= ${id}>
 								</div>
 								<div class="col-lg-7 custom_card_" id=${id}>
-								
 									<div class="col-lg-12 custom_card_"><h5 class="texts muted-text bold" id= ${id}>${data.name}</h5></div>
 									<div class="col-lg-12 custom_card_"><h5 class="texts muted-text bold" id= ${id}>Till No ${data.teller}</h5></div>
 								</div>
@@ -199,7 +198,7 @@ const verifyKey = (me) => {
 			localStorage.setItem("key",data["key_"])
 			localStorage.setItem("branch_info",JSON.stringify(data))
 			$("#branch").html(data.name)
-			$("#date").html(new Date())
+			$("#date").html(data["today"])
 			$("#services").show()
 
 		}else{
