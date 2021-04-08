@@ -56,12 +56,15 @@ sio.on('disconnect', () => {
 });
 
 sio.on('service_mod_data', () => {
-  loadTiles()
-  console.log("Tiles Reloaded")
+	loadTiles();
+	reload();
 });
-// end socket implemetation 
+
+
+// end socket implementation
 sio.on("update_services_data",()=>{
 	loadTiles();
+	reload();
 })
 
 
@@ -79,7 +82,6 @@ setTimeout(()=>{
 	$(".custom_card").on("click",(me)=>{
 		let id = me.target.id	
 		let service_name = id ? id : localStorage.getItem("current_service");
-		console.log("XXXX",service_name)
 		if (service_name && id){
 			localStorage.setItem("current_service",id)
 			localStorage.setItem("service_name",service_name)
@@ -106,7 +108,7 @@ setTimeout(()=>{
 const loadTiles = () =>{
 	let	handle = $("#services")
 	handle.html("")
-	// here we are profilling the DOM
+	// here we are profiling the DOM
 	if(JSON.parse(localStorage.getItem("branch_info"))){
 		getData(`${link}/services/branch/get`,"POST",{ "branch_id": branch_id},(service)=>{
 			if(service.length > 0){
@@ -133,7 +135,13 @@ const loadTiles = () =>{
 					`)
 				})
 			}else{
-				$("#services").html("<br><h3 style='color:lightgrey'>No Services added yet</h3><br>")
+				$("#services").html(`
+					<div>
+					<img src="./images/empty.png" alt="" height="150px" class="mt-3 mb-3">
+					<div class="mt-2 text-muted h6 bold">Nothing To Book</div>
+					<div class="mt-2 text-muted h5 bold">No Services Added yet</div>
+					</div>
+				`)
 			}
 		});
 	}else{
@@ -175,29 +183,10 @@ $("#settings").on("click",()=>{
 	},10)
 });
 
-// setTimeout(()=>{
-	
-// },100)
 
 $(".close").on("click",()=>{
 	$("#myModal").hide()
 });
-
-
-
-// setTimeout(()=>{
-// 	let key = localStorage.getItem("key")
-// 	getData(`${link}/branch/by/key`,"POST",{"key" : key},(data)=>{
-// 		if(data.status){
-// 			$("#branch").html(data.name)
-// 			$("#date").html(new Date())
-// 		}else{
-// 			$("#branch").html("——")
-// 		}
-// 	})
-// },10)
-
-
 
 const verifyKey = (me) => {
 	let key = $("#key").val()
@@ -228,21 +217,6 @@ const verifyKey = (me) => {
 verifyKey()
 
 
-
-// print ticket 
-const printTicket = () =>{
-
-}
-
-// $("#verifyKey").on("click",()=>{
-// 	let key = $("#key").val()
-// 	if(key) {
-// 	//	message_key
-// 		verifyKey(key)
-// 	}else {
-// 		$("#message_key").html(`<div class="alert alert-danger" role="alert">Key cannot Be empty</div>`)
-// 	}
-// })
 
 $("#key").on("input",(e)=>{
 	$("#verifyKey").prop("disabled",false)
