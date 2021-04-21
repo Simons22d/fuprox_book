@@ -267,14 +267,16 @@ $("#verifyTicket").on("click",(e)=>{
 			$("#company").html(ticket_data.company)	
 			$("#branch_id").html((ticket_data.branch_name).substr(0,32))
 			// here we are going to work with time 
-			let hrs = ticket_data.avg_time.hours
-			let mins = ticket_data.avg_time.minutes
-			let secs = ticket_data.avg_time.seconds
+			let hrs = Number(ticket_data.avg_time.hours)
+			let mins = Number(ticket_data.avg_time.minutes)
+			let secs = Number(ticket_data.avg_time.seconds)
 
 			let final_time;
-			if(Number(mins) > 0 && Number(secs) > 0 || Number(mins) > 0 && Number(secs) === 00){
+			if(hrs && mins && secs ){
+				final_time = `${hrs}H ${mins}M ${secs}S`
+			}else if(mins && secs){
 				final_time = `${mins}M ${secs}S`
-			}else if(Number(secs) < 1){
+			}else if(secs){
 				final_time = `Few Seconds`
 			}
 			ref = `${ticket_data.avg_time.minutes} M ${ticket_data.avg_time.seconds} S`
