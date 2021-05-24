@@ -272,11 +272,14 @@ $("#verifyTicket").on("click",(e)=>{
 			let secs = Number(ticket_data.avg_time.seconds)
 
 			let final_time;
+			console.log(hrs,mins,secs)
 			if(hrs && mins && secs ){
 				final_time = `${hrs}H ${mins}M ${secs}S`
 			}else if(mins && secs){
 				final_time = `${mins}M ${secs}S`
-			}else if(secs){
+			}else if(mins && secs === 0){
+				final_time = `${mins} Minutes`
+			}else if(mins){
 				final_time = `Few Seconds`
 			}
 			ref = `${ticket_data.avg_time.minutes} M ${ticket_data.avg_time.seconds} S`
@@ -291,8 +294,6 @@ $("#verifyTicket").on("click",(e)=>{
 			}else{
 				final_str = "Yay! No one"
 			}
-
-			console.log("final time : AVG WAIT",final_time)
 
 			$("#avg_wait").html(final_time)
 			$("#today").html(ticket_data.today)
