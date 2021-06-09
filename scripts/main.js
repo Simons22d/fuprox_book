@@ -270,7 +270,7 @@ $("#verifyTicket").on("click",(e)=>{
 			let hrs = Number(ticket_data.avg_time.hours)
 			let mins = Number(ticket_data.avg_time.minutes)
 			let secs = Number(ticket_data.avg_time.seconds)
-
+			// console.log(hrs,mins,secs)
 			let final_time;
 			console.log(hrs,mins,secs)
 			if(hrs && mins && secs ){
@@ -279,7 +279,7 @@ $("#verifyTicket").on("click",(e)=>{
 				final_time = `${mins}M ${secs}S`
 			}else if(mins && secs === 0){
 				final_time = `${mins} Minutes`
-			}else if(mins){
+			}else if(mins == 00 && secs){
 				final_time = `Few Seconds`
 			}
 			ref = `${ticket_data.avg_time.minutes} M ${ticket_data.avg_time.seconds} S`
