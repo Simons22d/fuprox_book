@@ -189,6 +189,7 @@ $("#settings").on("click",()=>{
 
 $(".close").on("click",()=>{
 	$("#myModal").hide()
+	ticket.hide()
 });
 
 const verifyKey = (me) => {
