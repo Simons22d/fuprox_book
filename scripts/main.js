@@ -48,7 +48,7 @@ const sio = io(`http://${addr}:5500/`);
 
 
 sio.on('connect', () => {
-  console.log('$$$$$$$$$$$$$$$$$$ ... connected');
+  console.log('connected');
 });
 
 sio.on('disconnect', () => {
@@ -78,31 +78,50 @@ const key_exists = () =>{
 // working with the booking pop-up
 // here we are going to have 
 
-setTimeout(()=>{
-	$(".custom_card").on("click",(me)=>{
-		let id = me.target.id	
-		let service_name = id ? id : localStorage.getItem("current_service");
-		if (service_name && id){
-			localStorage.setItem("current_service",id)
-			localStorage.setItem("service_name",service_name)
-			sessionStorage.setItem("service_name",localStorage.getItem("service_name"));
-			ticket.show()
-			let spl = service_name.split("_");
-			let king = service_name.split("_").length > 1 ? `${spl[0]} ${spl[1]}` : service_name ;
-			sessionStorage.setItem("service_name",service_name);
-
-			// make booking
-			$("#service_name_intext").html(king);
-			$("#myModal").show()
-			$("#iconConfirm").show()
-			$("#keyAndSettings").hide()
-		}else{
-
-		}
-		
-	})
-},2000)
+// setTimeout(()=>{
+// 	$(".custom_card").on("click",(me)=>{
+// 		let id = me.target.id
+// 		let service_name = id ? id : localStorage.getItem("current_service");
+// 		if (service_name && id){
+// 			localStorage.setItem("current_service",id)
+// 			localStorage.setItem("service_name",service_name)
+// 			sessionStorage.setItem("service_name",localStorage.getItem("service_name"));
+// 			ticket.show()
+// 			let spl = service_name.split("_");
+// 			let king = service_name.split("_").length > 1 ? `${spl[0]} ${spl[1]}` : service_name ;
+// 			sessionStorage.setItem("service_name",service_name);
+//
+// 			// make booking
+// 			$("#service_name_intext").html(king);
+// 			$("#myModal").show()
+// 			$("#iconConfirm").show()
+// 			$("#keyAndSettings").hide()
+// 		}else{
+//
+// 		}
+//
+// 	})
+// },2000)
 });
+
+
+
+const make_booking = (me) =>{
+	let service_name = id ? id : localStorage.getItem("current_service");
+	localStorage.setItem("current_service",id)
+	localStorage.setItem("service_name",service_name)
+	sessionStorage.setItem("service_name",localStorage.getItem("service_name"));
+	ticket.show()
+	let spl = service_name.split("_");
+	let king = service_name.split("_").length > 1 ? `${spl[0]} ${spl[1]}` : service_name ;
+	sessionStorage.setItem("service_name",service_name);
+	localStorage.setItem("current_service",id)
+	// make booking
+	$("#service_name_intext").html(king);
+	$("#myModal").show()
+	$("#iconConfirm").show()
+	$("#keyAndSettings").hide()
+}
 
 
 const loadTiles = () =>{
@@ -121,16 +140,16 @@ const loadTiles = () =>{
 					let service_name = name.length > 1 ? `${name[0]}_${name[1]}` : data.name;
 					id = service_name;
 					handle.append(`
-						<div class="custom-width  custom_card  custom_card_ outset_card" id=${id}>
+						<div class="custom-width  custom_card  custom_card_ outset_card" id=${id} onclick="make_booking(this)">
 							<!-- top modal -->
-							<div class="row custom_card_" id=${id}>
-								<div class="col-lg-3 custom_card_" id=${id}>
+							<div class="row custom_card_" id=${id} ">
+								<div class="col-lg-3 custom_card_" id=${id} ">
 									<!-- image -->
-									<img src=${data.icon_image} alt="" class="texts custom_card_" height="60px" id= ${id}>
+									<img src=${data.icon_image} alt="" class="texts custom_card_" height="60px" id= ${id} ">
 								</div>
-								<div class="col-lg-7 custom_card_" id=${id}>
-									<div class="col-lg-12 custom_card_"><h5 class="texts muted-text bold" id= ${id}>${data.name}</h5></div>
-									<div class="col-lg-12 custom_card_"><h5 class="texts muted-text bold" id= ${id}>Till No ${data.teller}</h5></div>
+								<div class="col-lg-7 custom_card_" id=${id} ">
+									<div class="col-lg-12 custom_card_"><h5 class="texts muted-text bold" id= ${id} ">${data.name} </h5></div>
+									<div class="col-lg-12 custom_card_"><h5 class="texts muted-text bold" id= ${id} ">Till No ${data.teller}</h5></div>
 								</div>
 							</div>
 							<!-- end top -->
@@ -154,28 +173,28 @@ const loadTiles = () =>{
 			"<br>")
 	}
 
-setTimeout(()=>{
-	$(".custom_card_").on("click",(me)=>{
-		let id = me.target.id
-		let service_name = id ? id : localStorage.getItem("current_service");
-		localStorage.setItem("current_service",id)
-		localStorage.setItem("service_name",service_name)
-		sessionStorage.setItem("service_name",localStorage.getItem("service_name"));
+// setTimeout(()=>{
+// 	$(".custom_card_").on("click",(me)=>{
+// 		console.log("CLICKED >...")
+// 		let id = me.target.id
+// 		let service_name = id ? id : localStorage.getItem("current_service");
+// 		localStorage.setItem("current_service",id)
+// 		localStorage.setItem("service_name",service_name)
+// 		sessionStorage.setItem("service_name",localStorage.getItem("service_name"));
+// 		ticket.show()
+// 		let spl = service_name.split("_");
+// 		let king = service_name.split("_").length > 1 ? `${spl[0]} ${spl[1]}` : service_name ;
+// 		sessionStorage.setItem("service_name",service_name);
+// 		// localStorage.setItem("current_service",id)
+// 		// make booking
+// 		$("#service_name_intext").html(king);
+// 		$("#myModal").show()
+// 		$("#iconConfirm").show()
+// 		$("#keyAndSettings").hide()
+// 	})
+// },10)
 
-		ticket.show()
-		let spl = service_name.split("_");
-		let king = service_name.split("_").length > 1 ? `${spl[0]} ${spl[1]}` : service_name ;
-		sessionStorage.setItem("service_name",service_name);
-		// localStorage.setItem("current_service",id)
-		// make booking
-		$("#service_name_intext").html(king);
-		$("#myModal").show()
-		$("#iconConfirm").show()
-		$("#keyAndSettings").hide()
-	})
 
-	
-},10)
 	
 }
 $("#settings").on("click",()=>{
